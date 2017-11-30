@@ -1,15 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	<%@ include file = "/common/header.jsp" %>
-	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>HOME</title>
+<title>JSP4</title>
 </head>
 <body>
-	이 프로젝트의 홈입니다.
+
+
+	<table border="1">
+		<tr>
+			<td><a href="/index.jsp">home</a></td>
+			<td><a href="#">로그인</a></td>
+			<td><a href="#">회원가입</a></td>
+			<td><a href="#">게시판</a></td>
+		</tr>
+
+
+	</table>
+	<%
+		String str1 = "이름1";
+		String str2 = "나이2";
+	%>
+
+
 </body>
 </html>

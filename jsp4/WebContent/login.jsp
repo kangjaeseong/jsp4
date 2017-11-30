@@ -26,11 +26,24 @@
 			return true;
 
 		}
+		function formSubmit() {
+			var param = {};
+			param["id"] = document.getElementById("id").value;
+			param["pwd"] = document.getElementById("pwd").value;
+			
+		
+			//alert(JSON.stringify(param));
+			// JSON 방식 
+			param = [{"id" : "test","pwd" : "test1" } ,
+			{"id" : "test2","pwd" : "test3"}];
+			alert(param[1].id);
+			alert(param[1].pwd);
+		}
 	</script>
-	<form method="get" action="/test.login" onsubmit="return checkValue()">
-		아이디 : <input type="text" name="id" id="id"><br> 비밀번호 : <input
-			type="password" name="pwd" id="pwd"> <br> <input
-			type="submit" vlaue="login">
+	<form method="post" action="/test.login" onsubmit="return checkValue()">
+		아이디 : <input type="text" name="id" id="id"><br>
+		 비밀번호 : <input type="password" name="pwd" id="pwd"> <br> 
+		 <input type="button" value="login" onclick="formSubmit()">
 		
 	</form>
 </body>
