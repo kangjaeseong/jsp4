@@ -1,3 +1,5 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="com.test.jsp.service.ListExam"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -13,32 +15,35 @@
 </head>
 <body>
 	<%
-		ArrayList<HashMap<String, String>> al;
-		al = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("name", "홍길동");
-		hm.put("age", "33");
-		al.add(hm);
-
-		//HashMap<String, String> hm1 = new HashMap<String, String>();
-		hm.put("name", "강재성");
-		hm.put("age", "27");
-		al.add(hm);
+		ListExam le = new ListExam();
+		ArrayList<HashMap<String, String>> userList = le.getUserList();
 	%>
 
 	<table border="1">
 		<tr>
+			<th>유저번호</th>
 			<th><%=str1%></th>
 			<th><%=str2%></th>
+			<th>주소</th>
+			<th>아이디</th>
+			<th>나이</th>
+			<th>비밀번호</th>
+			<th>부서번호</th>
+			<th>부서이름</th>
+			<th>부서위치</th>
+
+
 		</tr>
 
 		<%
-			for (HashMap<String, String> map : al) {
+			for (HashMap<String, String> map : userList) {
 				out.println("<tr>");
-				out.println("<td>" + map.get("name") + "</td>");
-				out.println("<td>" + map.get("age") + "</td>");
-				out.println("</tr>");
-
+				Iterator<String> it = map.keySet().iterator();
+				while (it.hasNext()) { //처음으로 들어가 투스 펄스 확인
+					String key = it.next();
+					out.println("<td>" + map.get(key) + "</td>");
+				}
+				out.println("<tr>");
 			}
 		%>
 	</table>
