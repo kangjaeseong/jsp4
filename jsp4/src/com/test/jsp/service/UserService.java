@@ -4,13 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.test.jsp.dto.UserInfo;
+
 public interface UserService {
 
-	public ArrayList<HashMap<String, String>> getUserList(); 
+	public ArrayList<HashMap<String, String>> getUserList();
 
-	public HashMap<String,String> getUser(String id , String pwd) throws ClassNotFoundException, SQLException; 
-		
-	
-	
+	public UserInfo getUser(String id, String pwd) throws ClassNotFoundException, SQLException;
 
-	}
+}

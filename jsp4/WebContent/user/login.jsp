@@ -12,13 +12,16 @@
 function callback(re) {
 	//alert (re);
 	var obj = JSON.parse(re);
-	alert(obj.result);
+	
 	alert(obj.msg);
+	if(obj.result=="ok"){
+		location.reload();
+	}
 	
 	//document.getElementById("resultDiv").innerHTML = re; // 확인하는창
 }
 function Login(){ 
-	//var params = '{"id" : "test","pwd":"r1rr2"}';
+	//var params = '{"id" : "test","pwd":"test5"}';
 	//params = JSON.parse(params); // id,pwd 확인가능 
 	
 	//alert(params.id);
@@ -36,11 +39,10 @@ function Login(){
 </script>
 <body>
 <%
-HashMap<String,String> user = null;
-user = (HashMap<String,String>) session.getAttribute("user");
+
 if(user!=null){
-out.println(user.get("username")+ "님 환영");
-out.println(user.get("userage")+ "살 이시네요");
+out.println(user.getUserName() + "님 환영");
+out.println(user.getUserAge()+ "살 이시네요");
 
 }else{
 %>

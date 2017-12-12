@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.test.jsp.dto.UserInfo;
+
 public class UserServiceImpl implements UserService {
 
-	public HashMap<String, String> getUser(String id, String pwd) throws ClassNotFoundException, SQLException {
-		HashMap<String, String> hm = new HashMap<String, String>();
+	public UserInfo getUser(String id, String pwd) throws ClassNotFoundException, SQLException {
 
 		DBCon dbCon = new DBCon();
 		Connection con = dbCon.getConnection();
@@ -21,22 +22,19 @@ public class UserServiceImpl implements UserService {
 		ps.setString(1, id); // ?하나면 1= 바인딩
 		ps.setString(2, pwd);
 		ResultSet rs = ps.executeQuery(); // sql 실행
+		UserInfo ui = null;
 
 		while (rs.next()) { // 펄스일때 까지 작동
-
-			hm = new HashMap<String, String>();
-			hm.put("userno", rs.getString("userno"));
-			hm.put("username", rs.getString("username"));
-			hm.put("userid", rs.getString("userid"));
-			hm.put("userpwd", rs.getString("userpwd"));
-			hm.put("userage", rs.getString("userage"));
-			hm.put("dino", rs.getString("dino"));
-			hm.put("useraddress", rs.getString("useraddress"));
-			hm.put("diname", rs.getString("diname"));
-			hm.put("dietc", rs.getString("dietc"));
-
+			ui = new UserInfo();
+			ui.setUserNo(rs.getString("userno"));
+			ui.setUserName(rs.getString("username"));
+			ui.setUserId(rs.getString("userId"));
+			ui.setUserPwd(rs.getString("userPwd"));
+			ui.setUserAddress(rs.getString("userAddress"));
+			ui.setDiNo(rs.getString("dino"));
+			ui.setUserAge(rs.getString("userAge"));
 		}
-		return hm;
+		return ui;
 	}
 
 	public ArrayList<HashMap<String, String>> getUserList() {
