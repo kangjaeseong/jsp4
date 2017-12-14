@@ -41,18 +41,10 @@ public class UserServlet extends HttpServlet {
 			res.sendRedirect("/error.jsp");
 
 		} else if (cmd.equals("list")) {
-			String html = "";
-			ArrayList<HashMap<String, String>> userList = us.getUserList();
-			for (HashMap<String, String> map : userList) {
-				html += "<tr>";
-				Iterator<String> it = map.keySet().iterator();
-				while (it.hasNext()) { // 처음으로 들어가 투스 펄스 확인
-					String key = it.next();
-					html += "<td>" + map.get(key) + "</td>";
-				}
-				html += "</tr>";
-			}
-			out.println(html);
+			
+			ArrayList<UserInfo> userList = us.getUserList();
+			Gson gs = new Gson();
+			out.println(gs.toJson(userList)); 
 
 		} else if (cmd.equals("login")) {
 			String id = req.getParameter("id");
@@ -84,7 +76,27 @@ public class UserServlet extends HttpServlet {
 			HttpSession hs = req.getSession();
 			hs.invalidate();
 			res.sendRedirect("/user/login.jsp");
-		} else {
+
+		} else if (cmd.equals("join")) {
+
+			String params = req.getParameter("params");
+			Gson gs = new Gson();
+			UserInfo ui = gs.fromJson(params, UserInfo.class);
+			int result = us.insertUser(ui);
+			HashMap<String, String> hm = new HashMap<String, String>();
+			hm.put("result", "no");
+			hm.put("msg", "회원가입에 실패.");
+			if (result != 0) {
+				hm.put("result", "ok");
+				hm.put("msg", "회원가입 성공.");
+				hm.put("url", "/user/login.jsp");
+			}
+
+			out.println(gs.toJson(hm));
+
+		}
+
+		else {
 			res.sendRedirect("/error.jsp");
 		}
 	}

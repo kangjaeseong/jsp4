@@ -8,8 +8,12 @@ import com.test.jsp.dto.UserInfo;
 
 public interface UserService {
 
-	public ArrayList<HashMap<String, String>> getUserList();
+	public ArrayList<UserInfo> getUserList();
 
 	public UserInfo getUser(String id, String pwd) throws ClassNotFoundException, SQLException;
+
+	public int insertUser(HashMap hm);
+
+	public int insertUser(UserInfo ui);
 
 }

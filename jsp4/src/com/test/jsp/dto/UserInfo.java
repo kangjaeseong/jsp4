@@ -6,13 +6,9 @@ public class UserInfo {
 	private String userId;
 	private String userPwd;
 	private String userAddress;
-	private String userNo;
-	private String userAge;
+	private Integer userNo;
+	private Integer userAge;
 	private String diNo;
-
-	public static void main(String[] args) {
-
-	}
 
 	public String getUserName() {
 		return userName;
@@ -46,19 +42,21 @@ public class UserInfo {
 		this.userAddress = userAddress;
 	}
 
-	public String getUserNo() {
+
+
+	public Integer getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(String userNo) {
+	public void setUserNo(Integer userNo) {
 		this.userNo = userNo;
 	}
 
-	public String getUserAge() {
+	public Integer getUserAge() {
 		return userAge;
 	}
 
-	public void setUserAge(String userAge) {
+	public void setUserAge(Integer userAge) {
 		this.userAge = userAge;
 	}
 
