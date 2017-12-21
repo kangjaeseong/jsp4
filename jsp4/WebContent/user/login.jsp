@@ -9,16 +9,19 @@
 <title>로그인</title>
 </head>
 
-<link rel="stylesheet" href="<%=rootPath%>/ui/signin.css"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/sign.css"/>
 <%
 if(user!=null){
 out.println(user.getUserName() + "님 환영해요~~");
 out.println(user.getUserAge() + "살 이시네요");
 }else{
 %>
+
+
+
 <div class="container">
 	<form class="form-signin" action="/login.user" method="post">
-		<h2 class="form-signin-heading">Please login</h2>
+		<h2 class="form-signin-heading">로그인</h2>
 		
 		<label for="inputEmail" class="sr-only">ID</label> <input type="text"
 			id="id" name="id" class="form-control" placeholder="ID" required
@@ -32,9 +35,13 @@ out.println(user.getUserAge() + "살 이시네요");
 		<div class="checkbox">
 			<label> <input type="checkbox" value="remember-me">
 				Remember me
+				
+							
+				
 			</label>
 			
-		</div>
+		
+			</div>
 		
 		<input type="hidden" name="command" value="login"/>
 		<input  class="btn btn-lg btn-primary btn-block"

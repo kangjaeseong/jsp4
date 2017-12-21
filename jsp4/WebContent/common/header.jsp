@@ -2,6 +2,9 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix= "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,11 +15,11 @@
 String rootPath = request.getContextPath();
 UserInfo user = null;
 user = (UserInfo) session.getAttribute("user");
-String m2 = "로그인";
-String u2 = "/user/login.jsp";
+String menu = "Login";
+String url = rootPath + "/user/login.jsp";
 if(user!=null){
-	m2 = "로그아웃";
-	u2 = "/user/logout.user?cmd=logout";
+	menu  = "Logout";
+	url = rootPath +"/user/logout.user?cmd=logout";
 }
 %>
 
@@ -43,13 +46,13 @@ $(document).ready(function(){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<%=rootPath%>/">Project name</a>
+          <a class="navbar-brand" href="<%=rootPath%>/">JSP4</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="<%=rootPath%>/">Home</a></li>
-            <li><a href="<%=rootPath%>/user/login.jsp">login</a></li>
-            <li><a href="<%=rootPath%>/user/join.jsp">join us</a></li>
+            <li><a href="<%=url%>" > <%=menu%></a></li>
+             <li><a href="<%=rootPath%>/user/join.jsp">join us</a></li>
              <li><a href="<%=rootPath%>/user/list.jsp">User List</a></li>
           </ul>
         </div><!--/.nav-collapse -->

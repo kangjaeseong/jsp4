@@ -13,7 +13,7 @@
 			name="id" class="form-control" placeholder="ID" required autofocus>
 
 		<label for="id" class="sr-only">password</label> <input type="text"
-			id="password" name="password" class="form-control" placeholder="password"
+			id="pwd" name="password" class="form-control" placeholder="password"
 			required autofocus>
 			
 			 <label for="id" class="sr-only">이름</label>
