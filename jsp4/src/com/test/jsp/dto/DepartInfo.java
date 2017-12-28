@@ -3,7 +3,7 @@ package com.test.jsp.dto;
 public class DepartInfo {
 	private int diNo;
 	private String diName;
-	private String diEtc; // 단축키
+	private String diEtc;
 
 	public int getDiNo() {
 		return diNo;

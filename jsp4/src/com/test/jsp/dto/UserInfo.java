@@ -1,14 +1,13 @@
 package com.test.jsp.dto;
 
 public class UserInfo {
-
 	private String userName;
 	private String userId;
 	private String userPwd;
 	private String userAddress;
 	private Integer userNo;
 	private Integer userAge;
-	private String diNo;
+	private Integer diNo;
 
 	public String getUserName() {
 		return userName;
@@ -42,8 +41,6 @@ public class UserInfo {
 		this.userAddress = userAddress;
 	}
 
-
-
 	public Integer getUserNo() {
 		return userNo;
 	}
@@ -60,11 +57,11 @@ public class UserInfo {
 		this.userAge = userAge;
 	}
 
-	public String getDiNo() {
+	public Integer getDiNo() {
 		return diNo;
 	}
 
-	public void setDiNo(String diNo) {
+	public void setDiNo(Integer diNo) {
 		this.diNo = diNo;
 	}
 

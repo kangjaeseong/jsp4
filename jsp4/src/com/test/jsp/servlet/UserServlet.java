@@ -19,7 +19,6 @@ import com.test.jsp.service.UserService;
 import com.test.jsp.service.UserServiceImpl;
 
 public class UserServlet extends HttpServlet {
-
 	UserService us = new UserServiceImpl();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -31,21 +30,18 @@ public class UserServlet extends HttpServlet {
 	}
 
 	public void doProcess(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		req.setCharacterEncoding("utf-8");// 요청
-		res.setCharacterEncoding("utf-8");// 응답
+		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		String cmd = req.getParameter("cmd");
-
+		System.out.println(req.getRequestURI());
 		if (cmd == null) {
 			res.sendRedirect("/error.jsp");
-
 		} else if (cmd.equals("list")) {
-
 			ArrayList<UserInfo> userList = us.getUserList();
 			Gson gs = new Gson();
 			out.println(gs.toJson(userList));
-
 		} else if (cmd.equals("login")) {
 			String id = req.getParameter("id");
 			String pwd = req.getParameter("pwd");
@@ -54,53 +50,41 @@ public class UserServlet extends HttpServlet {
 				UserInfo ui = us.getUser(id, pwd);
 				if (ui == null) {
 					hm.put("result", "no");
-					hm.put("msg", "아이디 와 비밀번호 확인");
-
+					hm.put("msg", "아이디와 비밀번호를 확인하세요");
 				} else {
 					HttpSession hs = req.getSession();
 					hs.setAttribute("user", ui);
 					hm.put("result", "ok");
-					hm.put("msg", ui.getUserName() + "님 환영");
+					hm.put("msg", ui.getUserName() + "님 환영!!");
 				}
-
 				Gson gs = new Gson();
 				out.println(gs.toJson(hm));
-			} catch (ClassNotFoundException e) {
-
-				e.printStackTrace();
-			} catch (SQLException e) {
-
+			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
 		} else if (cmd.equals("logout")) {
 			HttpSession hs = req.getSession();
 			hs.invalidate();
 			res.sendRedirect("/user/login.jsp");
-
 		} else if (cmd.equals("join")) {
-
 			String params = req.getParameter("params");
 			Gson gs = new Gson();
 			UserInfo ui = gs.fromJson(params, UserInfo.class);
 			int result = us.insertUser(ui);
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("result", "no");
-			hm.put("msg", "회원가입에 실패.");
+			hm.put("msg", "회원가입에 실패하셨습니다.");
 			if (result != 0) {
 				hm.put("result", "ok");
-				hm.put("msg", "회원가입 성공.");
+				hm.put("msg", "회원가입에 성공하셨습니다.");
 				hm.put("url", "/user/login.jsp");
 			}
-
 			out.println(gs.toJson(hm));
-
 		} else if (cmd.equals("view")) {
 			int userNo = Integer.parseInt(req.getParameter("userno"));
-
 			UserInfo ui = us.getUser(userNo);
 			Gson gs = new Gson();
 			out.println(gs.toJson(ui));
-
 		} else if (cmd.equals("delete")) {
 			String checkPwd = req.getParameter("checkPwd");
 			UserInfo ui = (UserInfo) req.getSession().getAttribute("user");
@@ -108,26 +92,30 @@ public class UserServlet extends HttpServlet {
 			int result = us.deleteUser(ui);
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("result", "no");
-			hm.put("msg", "회원 비밀번호 틀림");
+			hm.put("msg", "회원 탈퇴에 실패하셨습니다.");
 			if (result != 0) {
 				hm.put("result", "ok");
-				hm.put("msg", "회원 탈퇴 성공");
+				hm.put("msg", "회원탈퇴에 성공하셨습니다.");
 				hm.put("url", "/user/logout.user?cmd=logout");
 			}
 			Gson gs = new Gson();
 			out.println(gs.toJson(hm));
-
 		} else if (cmd.equals("update")) {
-			int result = us.updateUser(null);
+			String params = req.getParameter("params");
+			Gson gs = new Gson();
+			UserInfo ui = gs.fromJson(params, UserInfo.class);
+			HttpSession hs = req.getSession();
+			UserInfo sui = (UserInfo) hs.getAttribute("user");
+			ui.setUserNo(sui.getUserNo());
+			int result = us.updateUser(ui);
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("result", "no");
-			hm.put("msg", "회원 수정 실패");
+			hm.put("msg", "회원 수정이 실패하셨습니다.");
 			if (result != 0) {
 				hm.put("result", "ok");
-				hm.put("msg", "회원 수정 성공");
-				hm.put("url", "/user/view.jsp?userno=");
+				hm.put("msg", "회원 수정이 성공하셨습니다.");
+				hm.put("url", "/user/view.jsp?userno=" + ui.getUserNo());
 			}
-			Gson gs = new Gson();
 			out.println(gs.toJson(hm));
 		} else if (cmd.equals("checkPwd")) {
 			String checkPwd = req.getParameter("checkPwd");
@@ -136,7 +124,7 @@ public class UserServlet extends HttpServlet {
 			String userPwd = ui.getUserPwd();
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("result", "no");
-			hm.put("msg", "비밀번호 틀렸습니다.");
+			hm.put("msg", "비밀번호가 틀렸습니다.");
 			if (checkPwd.equals(userPwd)) {
 				hm.put("result", "ok");
 				hm.put("msg", "");

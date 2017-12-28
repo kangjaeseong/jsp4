@@ -8,6 +8,15 @@
 </head>
 <body>
 	<div class="container">
+	
+	<from class="form-sigin" action="/depart/list" method="get">
+	<select name="serchOption">
+	<option value = "diName">부서이름</option>
+	<option value = "diDesc">부서설명</option>
+	 </select>
+	<input type="text" id= "diName" name="diName" > <button>검색</button>
+	</from>
+	<br>
 		<table id="table" date-height="460"
 			class="table table-bordered table-hover">
 			<thead>

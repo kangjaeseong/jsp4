@@ -7,7 +7,6 @@ import java.util.HashMap;
 import com.test.jsp.dto.UserInfo;
 
 public interface UserService {
-
 	public ArrayList<UserInfo> getUserList();
 
 	public UserInfo getUser(String id, String pwd) throws ClassNotFoundException, SQLException;
@@ -21,5 +20,4 @@ public interface UserService {
 	public int deleteUser(UserInfo ui);
 
 	int updateUser(UserInfo ui);
-
 }
